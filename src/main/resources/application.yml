@@ -1,0 +1,40 @@
+# Server settings  
+server:  
+    port: 8088
+    address: localhost
+  
+# db
+db:
+  jdbc:
+      driverClass: com.mysql.jdbc.Driver
+      url: jdbc:mysql://127.0.0.1:3306/grass?useUnicode=true&characterEncoding=utf-8
+      username: root
+      password: root
+  mybatis:
+      typeAliasesPackage: com.grass.module.**.entity
+      mapperLocations: classpath:/mapper/module/**.xml
+      pageSize: 20
+
+
+
+# SPRING PROFILES  
+spring:         
+    # HTTP ENCODING  
+    http:  
+        encoding.charset: UTF-8  
+        encoding.enable: true  
+        encoding.force: true
+    mvc:
+        prefix: /WEB-INF/views/
+        suffix: .html
+
+
+# LOGGING  
+logging:  
+    level:
+       com.ibatis: DEBUG
+
+# path
+path:
+    adminPath: admin
+    frontPath: app
