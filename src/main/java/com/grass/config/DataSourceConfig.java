@@ -34,17 +34,17 @@ public class DataSourceConfig implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment env) {
-        this.propertyResolver = new RelaxedPropertyResolver(env, "db.");
+        this.propertyResolver = new RelaxedPropertyResolver(env, "spring.");
     }
 
     @Bean
     public DataSource dataSource() {
         logger.info("================================start  init  datasource =======================");
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setUrl(propertyResolver.getProperty("jdbc.url"));
-        dataSource.setDriverClassName(propertyResolver.getProperty("jdbc.driverClass"));
-        dataSource.setUsername(propertyResolver.getProperty("jdbc.username"));
-        dataSource.setPassword(propertyResolver.getProperty("jdbc.password"));
+        dataSource.setUrl(propertyResolver.getProperty("datasource.url"));
+        dataSource.setDriverClassName(propertyResolver.getProperty("datasource.driverClassName"));
+        dataSource.setUsername(propertyResolver.getProperty("datasource.username"));
+        dataSource.setPassword(propertyResolver.getProperty("datasource.password"));
         logger.info("================================end   init  datasource=======================");
         return dataSource;
     }

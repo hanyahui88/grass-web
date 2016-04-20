@@ -1,5 +1,6 @@
 package com.grass.config;
 
+import com.grass.common.utils.SpringContextHolder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +17,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.grass.module"}, includeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = {Controller.class})
-})
+@ComponentScan(basePackages = {"com.grass.module"}, includeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = {Controller.class})})
 @ConfigurationProperties(prefix = "spring.mvc.")
 public class MvcConfig extends WebMvcConfigurerAdapter {
     @Value("prefix")
@@ -50,5 +50,4 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations("classpath:/static/");
     }
-
 }

@@ -19,4 +19,8 @@ public class UserService {
 //        return null;
         return userDao.findAll();
     }
+    public UserEntity get(String id) {
+//        return null;
+        return userDao.get(id);
+    }
 }

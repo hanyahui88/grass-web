@@ -13,4 +13,6 @@ import java.util.List;
 public interface UserDao {
     @Select("select name,age from sys_user")
     List<UserEntity> findAll();
+
+    UserEntity get(String id);
 }

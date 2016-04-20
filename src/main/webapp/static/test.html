@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MyApp">
+<head>
+    <meta charset="UTF-8">
+    <title>angular1 and </title>
+    <link rel="stylesheet" href="css/angular-material-1.1.0/angular-material.min.css">
+</head>
+<body ng-controller="AppCtrl">
+<div class="md-container">
+
+    <div layout="column" layout-padding>
+        <div layout="row">
+            <div>Logo</div>
+            <h1 flex>Sample site</h1>
+        </div>
+        <div flex layout-gt-sm="row" layout-sm="column">
+            <div flex-gt-sm="20">
+                Sidebar
+            </div>
+            <div flex-gt-sm="80">
+                Content
+            </div>
+        </div>
+        <div layout="row" layout-align="center">
+            footer
+        </div>
+    </div>
+    <h1>组件 md-button 的使用示例</h1>
+    <md-button>Click me!</md-button>
+    <md-button>My blog</md-button>
+    <h1> 组件 md-checkbox 的使用示例</h1>
+    <md-checkbox ng-model="isDone" aria-label="Done?">Done?</md-checkbox>
+    <h1>组件 md-input-container 的使用示例</h1>
+    <md-input-container>
+        <label>Username</label>
+        <input type="text" ng-model="user.name">
+    </md-input-container>
+    <md-input-container>
+        <label>Description</label>
+        <textarea ng-model="user.description"></textarea>
+    </md-input-container>
+    <h1>组件 md-radio-group 和 md-radio-button 的使用示例</h1>
+    <md-radio-group ng-model="color">
+        <md-radio-button value="red">Red</md-radio-button>
+        <md-radio-button value="green">Green</md-radio-button>
+        <md-radio-button value="blue">Blue</md-radio-button>
+    </md-radio-group>
+    <h1>组件 md-switch 的使用示例</h1>
+    <md-switch ng-model="isEnabled" aria-label="Enable?">Enable ?</md-switch>
+    <h1>组件 md-slider 的使用示例</h1>
+    <md-slider ng-model="value" min="5" max="100">
+    </md-slider>
+    <h1>组件 md-content 和 md-sidenav 的使用示例</h1>
+    <div layout="row">
+        <md-sidenav md-component-id="sidenav" class="md-sidenav-left">
+            Sidenav
+        </md-sidenav>
+        <md-content>
+            <md-button ng-click="toggleSidenav('sidenav')">
+                Open sidenav
+            </md-button>
+            <p>Main content</p>
+        </md-content>
+    </div>
+    <h1>组件 md-tabs 和 md-tab 的使用示例</h1>
+    <md-tabs>
+        <md-tab label="Tab 1">
+            <h1>Tab 1 content</h1>
+        </md-tab>
+        <md-tab>
+            <md-tab-label>
+                <strong>Tab 2</strong>
+            </md-tab-label>
+            <p>Tab 2 content</p>
+        </md-tab>
+    </md-tabs>
+    <h1>组件 md-list 和 md-item 的使用示例</h1>
+    <md-list>
+        <md-item>
+            <md-item-content>
+                Item 1
+            </md-item-content>
+        </md-item>
+        <md-item>
+            <md-item-content>
+                Item 2
+            </md-item-content>
+        </md-item>
+    </md-list>
+    <h1>组件 md-grid-list 和 md-grid-tile 的使用示例</h1>
+    <md-grid-list md-cols="2" md-row-height="1:1" md-gutter="8px">
+        <md-grid-tile md-colspan="2">
+            <md-grid-tile-footer>
+                footer
+            </md-grid-tile-footer>
+            <h1>1</h1>
+        </md-grid-tile>
+        <md-grid-tile>
+            <md-grid-tile-header>
+                header
+            </md-grid-tile-header>
+            <h1>2</h1>
+        </md-grid-tile>
+        <md-grid-tile>
+            <h1>3</h1>
+        </md-grid-tile>
+    </md-grid-list>
+    <h1>组件 md-progress-circular 和 md-progress-linear 的使用示例</h1>
+    <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+
+    <h1>组件 md-icon 和 md-tooltip 的使用示例</h1>
+    <md-button class="fab">
+        <md-icon class="fa" md-font-icon="fa-save"></md-icon>
+        <md-tooltip>Save</md-tooltip>
+    </md-button>
+    <h1>组件 md-autocomplete 和 md-highlight-text 的使用示例</h1>
+    <md-autocomplete
+            md-selected-item="selectedColor"
+            md-search-text="searchText"
+            md-items="color in filterColor(searchText)"
+            md-item-text="text"
+            placeholder="What's your favorite color?">
+        <span md-highlight-text="searchText">{{color.text}}</span>
+    </md-autocomplete>
+
+</div>
+<script src="js/angular-1.3.15/angular.min.js"></script>
+<script src="js/angular-1.3.15/angular-animate.min.js"></script>
+<script src="js/angular-1.3.15/angular-aria.min.js"></script>
+<script src="js/angular-material-1.1.0/angular-material.min.js"></script>
+<!--<script src="test.js"></script>-->
+<script>
+    angular.module('MyApp', ['ngMaterial'])
+            .config(function ($mdThemingProvider) {
+                $mdThemingProvider.theme('default')
+                        .primaryPalette('blue')
+                        .accentPalette('green');
+            }).controller('AppCtrl', ['$scope', '$mdSidenav', function ($scope, $mdSidenav) {
+        $scope.toggleSidenav = function (menuId) {
+            $mdSidenav(menuId).toggle();
+        };
+        var colors = [{
+            value: 'red',
+            text: 'Red'
+        }, {
+            value: 'green',
+            text: 'Green'
+        }, {
+            value: 'blue',
+            text: 'Blue'
+        }];
+        $scope.filterColor = function(query) {
+            return colors.filter(function(color) {
+                return color.text.indexOf(query) === 0;
+            });
+        };
+        $scope.show = function() {
+            $mdBottomSheet.show({
+                template: '<md-bottom-sheet><md-button ng-click="done()">Done</md-button></md-bottom-sheet>',
+                controller: 'BottomSheetCtrl'
+            }).then(function(value) {
+                window.alert(value);
+            }, function() {
+                window.alert('Nothing!');
+            });
+        };
+    }]);
+</script>
+</body>
+</html>

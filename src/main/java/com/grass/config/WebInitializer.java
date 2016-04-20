@@ -1,12 +1,12 @@
 package com.grass.config;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import com.alibaba.druid.support.http.StatViewServlet;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 /**
@@ -27,7 +27,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     protected Class[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class};
+        return new Class[]{};
     }
 
     /*
@@ -40,7 +40,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     }
 
     /*
-	  * 注册过滤器，映射路径与DispatcherServlet一致，路径不一致的过滤器需要注册到另外的WebApplicationInitializer中
+      * 注册过滤器，映射路径与DispatcherServlet一致，路径不一致的过滤器需要注册到另外的WebApplicationInitializer中
 	  */
     @Override
     protected Filter[] getServletFilters() {
@@ -51,22 +51,19 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     }
 
     /*
-	  * 可以注册DispatcherServlet的初始化参数，等等
+      * 可以注册DispatcherServlet的初始化参数，等等
 	  */
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
         //registration.setInitParameter("spring.profiles.active", "default");
 
     }
-//
-//    /*
-//     * 创建一个可以在非spring管理bean中获得spring管理的相关bean的对象：CP_SpringContext.getBean(String beanName)
-//     */
-//    @Override
-//    protected WebApplicationContext createRootApplicationContext() {
-//        // TODO Auto-generated method stub
-//        WebApplicationContext ctx = super.createRootApplicationContext();
-//        CP_SpringContext.getInstance().setApplicationContext(ctx);
-//        return ctx;
-//    }
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        System.err.print("--------------------开始加载WebApplicationConfig-----------------------");
+        ServletRegistration.Dynamic druidStatView = servletContext.addServlet("DruidStatView", StatViewServlet.class);
+        druidStatView.addMapping("/druid/*");
+        System.err.print("--------------------结束加载WebApplicationConfig-----------------------");
+    }
 }
