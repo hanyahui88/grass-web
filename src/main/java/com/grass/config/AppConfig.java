@@ -19,7 +19,6 @@ public class AppConfig {
 
     @Bean
     public SpringContextHolder springContextHolder() {
-        System.err.println("init SpringContextHolder");
         return new SpringContextHolder();
     }
 }

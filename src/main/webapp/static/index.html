@@ -1,33 +1,54 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" ng-app="MyApp">
 <head>
     <meta charset="UTF-8">
     <title>angualr2 </title>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.5/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.5/bootstrap-theme.css">
-    <link rel="stylesheet" type="text/css" href="css/angular-material-0.11.2/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-3.3.5/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="static/css/bootstrap-3.3.5/bootstrap-theme.css">
+    <link rel="stylesheet" type="text/css" href="static/css/angular-material-1.1.0/angular-material.min.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
-<body>
+<body ng-controller="AppCtrl">
 <div class="container">
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label for="name" class="control-label">姓名</label>
-            <input type="text" class="form-control" id="name">
+    <div class="row ">
+        <div class="col-md-4 col-md-offset-8">
+            <div class="login-from-border">
+                <form class="form-horizontal">
+
+                    <md-input-container>
+                        <label for="username">用户名/手机号/邮箱</label>
+                        <md-icon md-svg-icon="core:person" style="color:#000;" aria-label="Add" ></md-icon>
+                        <input type="text" id="username"/>
+                    </md-input-container>
+                    <md-input-container>
+                        <label for="password">密码</label>
+                        <input type="text" id="password"/>
+                    </md-input-container>
+                    <md-button class="md-raised md-primary">submit</md-button>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="age" class="control-label">年龄</label>
-            <input type="text" class="form-control" id="age">
-        </div>
-        <div class="form-group">
-            <input type="button" class="btn btn-default" value="submit">
-        </div>
-    </form>
+    </div>
 </div>
 </body>
-<script src="js/jquery-2.2.3/jquery-2.2.3.min.js"></script>
-<script src="js/bootstrap-3.3.5/bootstrap.min.js"></script>
-<script src="js/angular-material-1.1.0/angular-material.min.js"></script>
-<script src="js/angular-2.0.0-beta.14/angular2-polyfills.js"></script>
-<script src="js/angular-2.0.0-beta.14/angular2.dev.js"></script>
+<!--<script src="static/js/jquery-2.2.3/jquery-2.2.3.min.js"></script>-->
+<!--<script src="static/js/bootstrap-3.3.5/bootstrap.min.js"></script>-->
+<!--<script src="static/js/angular-material-1.1.0/angular-material.min.js"></script>-->
+<!--<script src="static/js/angular-2.0.0-beta.14/angular2-polyfills.js"></script>-->
+<!--<script src="static/js/angular-2.0.0-beta.14/angular2.dev.js"></script>-->
+<script src="static/js/angular-1.3.15/angular.min.js"></script>
+<script src="static/js/angular-1.3.15/angular-animate.min.js"></script>
+<script src="static/js/angular-1.3.15/angular-aria.min.js"></script>
+<script src="static/js/angular-material-1.1.0/angular-material.min.js"></script>
+<script src="static/js/angular-material-icons-0.7.0/angular-material-icons.min.js"></script>
+<script>
+    angular.module('MyApp', ['ngMaterial','ngMdIcons'])
+            .config(function ($mdThemingProvider) {
+                $mdThemingProvider.theme('red')
+                        .primaryPalette('yellow')
+                        .accentPalette('green');
+            }).controller('AppCtrl', ['$scope', '$mdSidenav', function ($scope, $mdSidenav) {
 
+    }]);
+</script>
 </html>
