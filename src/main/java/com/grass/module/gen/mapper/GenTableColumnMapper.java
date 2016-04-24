@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
-package com.grass.module.gen.dao;
+package com.grass.module.gen.mapper;
 
 import com.grass.common.persistence.BaseDao;
 import com.grass.module.gen.entity.GenTableColumn;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
  * @version 2013-10-15
  */
 @Repository
-public interface GenTableColumnDao extends BaseDao<GenTableColumn> {
+public interface GenTableColumnMapper extends BaseDao<GenTableColumn> {
 
     public void deleteByGenTableId(GenTableColumn genTableColumn);
 }

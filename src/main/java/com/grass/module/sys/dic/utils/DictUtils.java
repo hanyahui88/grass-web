@@ -1,15 +1,15 @@
 /**
  * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
-package com.grass.module.sys.utils;
+package com.grass.module.sys.dic.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.grass.common.mapper.JsonMapper;
 import com.grass.common.utils.CacheUtils;
 import com.grass.common.utils.SpringContextHolder;
-import com.grass.module.sys.dao.DictDao;
-import com.grass.module.sys.entity.Dict;
+import com.grass.module.sys.dic.mapper.DictMapper;
+import com.grass.module.sys.dic.entity.DictEntity;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -23,13 +23,13 @@ import java.util.Map;
  */
 public class DictUtils {
 
-    private static DictDao dictDao = SpringContextHolder.getBean(DictDao.class);
+    private static DictMapper dictDao = SpringContextHolder.getBean(DictMapper.class);
 
     public static final String CACHE_DICT_MAP = "dictMap";
 
     public static String getDictLabel(String value, String type, String defaultValue) {
         if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(value)) {
-            for (Dict dict : getDictList(type)) {
+            for (DictEntity dict : getDictList(type)) {
                 if (type.equals(dict.getType()) && value.equals(dict.getValue())) {
                     return dict.getLabel();
                 }
@@ -51,7 +51,7 @@ public class DictUtils {
 
     public static String getDictValue(String label, String type, String defaultLabel) {
         if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(label)) {
-            for (Dict dict : getDictList(type)) {
+            for (DictEntity dict : getDictList(type)) {
                 if (type.equals(dict.getType()) && label.equals(dict.getLabel())) {
                     return dict.getValue();
                 }
@@ -60,13 +60,13 @@ public class DictUtils {
         return defaultLabel;
     }
 
-    public static List<Dict> getDictList(String type) {
+    public static List<DictEntity> getDictList(String type) {
         @SuppressWarnings("unchecked")
-        Map<String, List<Dict>> dictMap = (Map<String, List<Dict>>) CacheUtils.get(CACHE_DICT_MAP);
+        Map<String, List<DictEntity>> dictMap = (Map<String, List<DictEntity>>) CacheUtils.get(CACHE_DICT_MAP);
         if (dictMap == null) {
             dictMap = Maps.newHashMap();
-            for (Dict dict : dictDao.findAllList(new Dict())) {
-                List<Dict> dictList = dictMap.get(dict.getType());
+            for (DictEntity dict : dictDao.findAllList(new DictEntity())) {
+                List<DictEntity> dictList = dictMap.get(dict.getType());
                 if (dictList != null) {
                     dictList.add(dict);
                 } else {
@@ -75,7 +75,7 @@ public class DictUtils {
             }
             CacheUtils.put(CACHE_DICT_MAP, dictMap);
         }
-        List<Dict> dictList = dictMap.get(type);
+        List<DictEntity> dictList = dictMap.get(type);
         if (dictList == null) {
             dictList = Lists.newArrayList();
         }

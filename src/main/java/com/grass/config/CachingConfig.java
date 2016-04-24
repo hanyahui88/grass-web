@@ -52,13 +52,13 @@ public class CachingConfig extends CachingConfigurerSupport {
     @Override
     public CacheManager cacheManager() {
         logger.info("--------------------开始加载-cacheManager-----------------------");
-        Set<CacheManager> caches = new LinkedHashSet<>();
-        caches.add(ehCacheCacheManager());
-        caches.add(redisCacheManager());
-        CompositeCacheManager compositeCacheManager = new CompositeCacheManager();
-        compositeCacheManager.setCacheManagers(caches);
-        compositeCacheManager.setFallbackToNoOpCache(true);
-        return compositeCacheManager;
+//        Set<CacheManager> caches = new LinkedHashSet<>();
+//        caches.add(ehCacheCacheManager());
+//        caches.add(redisCacheManager());
+//        CompositeCacheManager compositeCacheManager = new CompositeCacheManager();
+//        compositeCacheManager.setCacheManagers(caches);
+//        compositeCacheManager.setFallbackToNoOpCache(true);
+        return redisCacheManager();
     }
 
     @Override
@@ -74,20 +74,20 @@ public class CachingConfig extends CachingConfigurerSupport {
     }
 
     // --------------  EhCache config --------------
-    @Bean
-    public EhCacheCacheManager ehCacheCacheManager() {
-        logger.info("--------------------开始加载-ehCacheCacheManager-----------------------");
-        return new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
-    }
-
-    @Bean
-    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
-        logger.info("--------------------开始加载-ehCacheManagerFactoryBean-----------------------");
-        EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
-        factoryBean.setConfigLocation(new ClassPathResource("ehcache.xml"));
-        factoryBean.setShared(true);
-        return factoryBean;
-    }
+//    @Bean
+//    public EhCacheCacheManager ehCacheCacheManager() {
+//        logger.info("--------------------开始加载-ehCacheCacheManager-----------------------");
+//        return new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
+//    }
+//
+//    @Bean
+//    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
+//        logger.info("--------------------开始加载-ehCacheManagerFactoryBean-----------------------");
+//        EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
+//        factoryBean.setConfigLocation(new ClassPathResource("ehcache-shiro.xml"));
+//        factoryBean.setShared(true);
+//        return factoryBean;
+//    }
 
     //-----------------redis config------------------------------
     @Bean

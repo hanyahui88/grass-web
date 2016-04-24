@@ -1,7 +1,7 @@
 /**
  * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
-package com.grass.module.gen.dao;
+package com.grass.module.gen.mapper;
 
 
 import com.grass.common.persistence.BaseDao;
@@ -18,7 +18,7 @@ import java.util.List;
  * @version 2013-10-15
  */
 @Repository
-public interface GenDataBaseDictDao extends BaseDao<GenTableColumn> {
+public interface GenDataBaseDictMapper extends BaseDao<GenTableColumn> {
 
     /**
      * 查询表列表

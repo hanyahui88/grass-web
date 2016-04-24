@@ -39,4 +39,20 @@ spring:
         pool.maxIdle: 300
         pool.maxTotal: 60000
         pool.testOnBorrow: true
-
+shiro:
+    session:
+      sessionTimeOut: 1800000
+      sessionValidationInterval: 120000
+      sessionValidationSchedulerEnabled: true
+      sessionIdCookieEnabled: true
+    cookie:
+      name: grass.session.id
+    ehcache:
+      configFilePath: classpath:ehcache-shiro.xml
+    path:
+      loginUrl: /login
+      successUrl: /success
+      map:
+        ${spring.mvc.adminPath}/a: authc
+        ${spring.mvc.adminPath}/b: anon
+        ${spring.mvc.adminPath}/c: user

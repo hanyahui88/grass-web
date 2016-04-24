@@ -4,7 +4,7 @@
 package com.grass.module.gen.entity;
 
 import com.grass.common.persistence.CommonEntiry;
-import com.grass.module.sys.entity.Dict;
+import com.grass.module.sys.dic.entity.DictEntity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -23,9 +23,9 @@ public class GenConfig extends CommonEntiry<GenConfig> implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<GenCategory> categoryList;    // 代码模板分类
-    private List<Dict> javaTypeList;        // Java类型
-    private List<Dict> queryTypeList;        // 查询类型
-    private List<Dict> showTypeList;        // 显示类型
+    private List<DictEntity> javaTypeList;        // Java类型
+    private List<DictEntity> queryTypeList;        // 查询类型
+    private List<DictEntity> showTypeList;        // 显示类型
 
     public GenConfig() {
         super();
@@ -43,31 +43,31 @@ public class GenConfig extends CommonEntiry<GenConfig> implements Serializable {
 
     @XmlElementWrapper(name = "javaType")
     @XmlElement(name = "dict")
-    public List<Dict> getJavaTypeList() {
+    public List<DictEntity> getJavaTypeList() {
         return javaTypeList;
     }
 
-    public void setJavaTypeList(List<Dict> javaTypeList) {
+    public void setJavaTypeList(List<DictEntity> javaTypeList) {
         this.javaTypeList = javaTypeList;
     }
 
     @XmlElementWrapper(name = "queryType")
     @XmlElement(name = "dict")
-    public List<Dict> getQueryTypeList() {
+    public List<DictEntity> getQueryTypeList() {
         return queryTypeList;
     }
 
-    public void setQueryTypeList(List<Dict> queryTypeList) {
+    public void setQueryTypeList(List<DictEntity> queryTypeList) {
         this.queryTypeList = queryTypeList;
     }
 
     @XmlElementWrapper(name = "showType")
     @XmlElement(name = "dict")
-    public List<Dict> getShowTypeList() {
+    public List<DictEntity> getShowTypeList() {
         return showTypeList;
     }
 
-    public void setShowTypeList(List<Dict> showTypeList) {
+    public void setShowTypeList(List<DictEntity> showTypeList) {
         this.showTypeList = showTypeList;
     }
 

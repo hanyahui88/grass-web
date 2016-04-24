@@ -1,9 +1,8 @@
 /**
  * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
-package com.grass.module.sys.entity;
+package com.grass.module.sys.dic.entity;
 
-import com.grass.common.persistence.BaseEntity;
 import com.grass.common.persistence.CommonEntiry;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,7 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author hanyahui
  * @version 2013-05-15
  */
-public class Dict extends CommonEntiry<Dict> {
+public class DictEntity extends CommonEntiry<DictEntity> {
 
     private static final long serialVersionUID = 1L;
     private String value;    // 数据值
@@ -26,15 +25,15 @@ public class Dict extends CommonEntiry<Dict> {
     private Integer sort;    // 排序
     private String parentId;//父Id
 
-    public Dict() {
+    public DictEntity() {
         super();
     }
 
-    public Dict(String id) {
+    public DictEntity(String id) {
         super(id);
     }
 
-    public Dict(String value, String label) {
+    public DictEntity(String value, String label) {
         this.value = value;
         this.label = label;
     }

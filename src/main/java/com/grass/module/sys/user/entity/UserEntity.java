@@ -1,4 +1,4 @@
-package com.grass.module.sys.entity;
+package com.grass.module.sys.user.entity;
 
 /**
  * Created by 韩亚辉 on 2016/4/18.

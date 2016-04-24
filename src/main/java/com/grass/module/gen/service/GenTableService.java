@@ -7,9 +7,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.grass.common.persistence.BaseService;
 import com.grass.common.utils.StringUtils;
-import com.grass.module.gen.dao.GenDataBaseDictDao;
-import com.grass.module.gen.dao.GenTableColumnDao;
-import com.grass.module.gen.dao.GenTableDao;
+import com.grass.module.gen.mapper.GenDataBaseDictMapper;
+import com.grass.module.gen.mapper.GenTableColumnMapper;
+import com.grass.module.gen.mapper.GenTableMapper;
 import com.grass.module.gen.entity.GenTable;
 import com.grass.module.gen.entity.GenTableColumn;
 import com.grass.module.gen.util.GenUtils;
@@ -30,11 +30,11 @@ import java.util.List;
 public class GenTableService extends BaseService {
 
     @Autowired
-    private GenTableDao genTableDao;
+    private GenTableMapper genTableDao;
     @Autowired
-    private GenTableColumnDao genTableColumnDao;
+    private GenTableColumnMapper genTableColumnDao;
     @Autowired
-    private GenDataBaseDictDao genDataBaseDictDao;
+    private GenDataBaseDictMapper genDataBaseDictDao;
 
     public GenTable get(String id) {
         GenTable genTable = genTableDao.get(id);

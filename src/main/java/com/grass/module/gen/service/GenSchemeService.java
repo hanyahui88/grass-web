@@ -8,9 +8,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.grass.common.persistence.BaseService;
 import com.grass.common.utils.StringUtils;
-import com.grass.module.gen.dao.GenSchemeDao;
-import com.grass.module.gen.dao.GenTableColumnDao;
-import com.grass.module.gen.dao.GenTableDao;
+import com.grass.module.gen.mapper.GenSchemeMapper;
+import com.grass.module.gen.mapper.GenTableColumnMapper;
+import com.grass.module.gen.mapper.GenTableMapper;
 import com.grass.module.gen.entity.*;
 import com.grass.module.gen.util.GenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +30,11 @@ import java.util.Map;
 @Transactional(readOnly = true)
 public class GenSchemeService extends BaseService {
     @Autowired
-    private GenSchemeDao genSchemeDao;
+    private GenSchemeMapper genSchemeDao;
     @Autowired
-    private GenTableDao genTableDao;
+    private GenTableMapper genTableDao;
     @Autowired
-    private GenTableColumnDao genTableColumnDao;
+    private GenTableColumnMapper genTableColumnDao;
 
     public GenScheme get(String id) {
         return genSchemeDao.get(id);

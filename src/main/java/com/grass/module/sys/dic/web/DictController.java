@@ -1,15 +1,15 @@
 /**
  * Copyright &copy; 2015-2016 <a href="https://github.com/hanyahui88/swifts">swifts</a> All rights reserved.
  */
-package com.grass.module.sys.web;
+package com.grass.module.sys.dic.web;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.grass.common.utils.StringUtils;
 import com.grass.common.web.BaseController;
-import com.grass.module.sys.entity.Dict;
-import com.grass.module.sys.service.DictService;
+import com.grass.module.sys.dic.entity.DictEntity;
+import com.grass.module.sys.dic.service.DictService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,31 +38,31 @@ public class DictController extends BaseController {
     private DictService dictService;
 
     @ModelAttribute
-    public Dict get(@RequestParam(required = false) String id) {
+    public DictEntity get(@RequestParam(required = false) String id) {
         if (StringUtils.isNotBlank(id)) {
             return dictService.get(id);
         } else {
-            return new Dict();
+            return new DictEntity();
         }
     }
 
     @RequestMapping(value = {"list", ""})
-    public String list(Dict dict, HttpServletRequest request, HttpServletResponse response, Model model) {
+    public String list(DictEntity dict, HttpServletRequest request, HttpServletResponse response, Model model) {
         List<String> typeList = dictService.findTypeList();
         model.addAttribute("typeList", typeList);
-        PageInfo<Dict> page = dictService.findPage(super.getPageNum(request), super.getPageSize(request), dict);
+        PageInfo<DictEntity> page = dictService.findPage(super.getPageNum(request), super.getPageSize(request), dict);
         model.addAttribute("page", page);
         return "modules/sys/dictList";
     }
 
     @RequestMapping(value = "form")
-    public String form(Dict dict, Model model) {
+    public String form(DictEntity dict, Model model) {
         model.addAttribute("dict", dict);
         return "modules/sys/dictForm";
     }
 
     @RequestMapping(value = "save")//@Valid
-    public String save(Dict dict, Model model, RedirectAttributes redirectAttributes) {
+    public String save(DictEntity dict, Model model, RedirectAttributes redirectAttributes) {
 //		if(GlobalUtils.isDemoMode()){
 //			addMessage(redirectAttributes, "演示模式，不允许操作！");
 //			return "redirect:" + adminPath + "/sys/dict/?repage&type="+dict.getType();
@@ -76,7 +76,7 @@ public class DictController extends BaseController {
     }
 
     @RequestMapping(value = "delete")
-    public String delete(Dict dict, RedirectAttributes redirectAttributes) {
+    public String delete(DictEntity dict, RedirectAttributes redirectAttributes) {
 //		if(GlobalUtils.isDemoMode()){
 //			addMessage(redirectAttributes, "演示模式，不允许操作！");
 //			return "redirect:" + adminPath + "/sys/dict/?repage";
@@ -90,11 +90,11 @@ public class DictController extends BaseController {
     @RequestMapping(value = "treeData")
     public List<Map<String, Object>> treeData(@RequestParam(required = false) String type, HttpServletResponse response) {
         List<Map<String, Object>> mapList = Lists.newArrayList();
-        Dict dict = new Dict();
+        DictEntity dict = new DictEntity();
         dict.setType(type);
-        List<Dict> list = dictService.findList(dict);
+        List<DictEntity> list = dictService.findList(dict);
         for (int i = 0; i < list.size(); i++) {
-            Dict e = list.get(i);
+            DictEntity e = list.get(i);
             Map<String, Object> map = Maps.newHashMap();
             map.put("id", e.getId());
             map.put("pId", e.getParentId());
@@ -106,8 +106,8 @@ public class DictController extends BaseController {
 
     @ResponseBody
     @RequestMapping(value = "listData")
-    public List<Dict> listData(@RequestParam(required = false) String type) {
-        Dict dict = new Dict();
+    public List<DictEntity> listData(@RequestParam(required = false) String type) {
+        DictEntity dict = new DictEntity();
         dict.setType(type);
         return dictService.findList(dict);
     }

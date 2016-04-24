@@ -1,7 +1,7 @@
-package com.grass.module.sys.service;
+package com.grass.module.sys.user.service;
 
-import com.grass.module.sys.dao.UserDao;
-import com.grass.module.sys.entity.UserEntity;
+import com.grass.module.sys.user.mapper.UserMapper;
+import com.grass.module.sys.user.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class UserService {
     @Autowired
-    private UserDao userDao;
+    private UserMapper userDao;
 
     public List<UserEntity> findAll() {
 //        return null;

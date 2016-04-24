@@ -7,7 +7,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.grass.common.persistence.BaseService;
 import com.grass.common.utils.StringUtils;
-import com.grass.module.gen.dao.GenTemplateDao;
+import com.grass.module.gen.mapper.GenTemplateMapper;
 import com.grass.module.gen.entity.GenTemplate;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class GenTemplateService extends BaseService {
 
     @Autowired
-    private GenTemplateDao genTemplateDao;
+    private GenTemplateMapper genTemplateDao;
 
     public GenTemplate get(String id) {
         return genTemplateDao.get(id);

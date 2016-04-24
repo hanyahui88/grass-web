@@ -4,7 +4,7 @@
 package com.grass.module.gen.entity;
 
 
-import com.grass.module.sys.entity.Dict;
+import com.grass.module.sys.dic.entity.DictEntity;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
@@ -18,7 +18,7 @@ import java.util.List;
  * @version 2013-10-15
  */
 @XmlRootElement(name = "category")
-public class GenCategory extends Dict {
+public class GenCategory extends DictEntity {
 
     private static final long serialVersionUID = 1L;
     private List<String> template;            // 主表模板

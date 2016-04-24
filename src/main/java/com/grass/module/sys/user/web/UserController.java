@@ -1,8 +1,8 @@
-package com.grass.module.sys.web;
+package com.grass.module.sys.user.web;
 
 import com.grass.common.utils.SpringContextHolder;
-import com.grass.module.sys.entity.UserEntity;
-import com.grass.module.sys.service.UserService;
+import com.grass.module.sys.user.entity.UserEntity;
+import com.grass.module.sys.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
