@@ -12,6 +12,7 @@ import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -26,6 +27,7 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @MapperScan("com.grass.module")
+@Order(2)
 public class DataSourceConfig implements EnvironmentAware {
 
     private RelaxedPropertyResolver propertyResolver;
@@ -39,18 +41,19 @@ public class DataSourceConfig implements EnvironmentAware {
 
     @Bean
     public DataSource dataSource() {
-        logger.info("================================start  init  datasource =======================");
+        logger.info("grass-----DataSourceConfig-----dataSource-------------init");
+        logger.info("grass-----DataSourceConfig-----dataSource-------------url:"+propertyResolver.getProperty("datasource.url"));
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUrl(propertyResolver.getProperty("datasource.url"));
         dataSource.setDriverClassName(propertyResolver.getProperty("datasource.driverClassName"));
         dataSource.setUsername(propertyResolver.getProperty("datasource.username"));
         dataSource.setPassword(propertyResolver.getProperty("datasource.password"));
-        logger.info("================================end   init  datasource=======================");
         return dataSource;
     }
 
     @Bean(name = "transactionManager")
     public DataSourceTransactionManager transactionManager(DataSource dataSource) {
+        logger.info("grass-----DataSourceConfig-----transactionManager-------------init");
         DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager(dataSource);
         return dataSourceTransactionManager;
 
@@ -59,7 +62,7 @@ public class DataSourceConfig implements EnvironmentAware {
 
     @Bean(name = "sqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        logger.info("================================start  init  sqlSessionFactory =======================");
+        logger.info("grass-----DataSourceConfig-----sqlSessionFactory-------------init");
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         Interceptor[] interceptors = new Interceptor[1];
@@ -101,7 +104,6 @@ public class DataSourceConfig implements EnvironmentAware {
         sessionFactory.setPlugins(interceptors);
         sessionFactory.setTypeAliasesPackage(propertyResolver.getProperty("mybatis.typeAliasesPackage"));
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(propertyResolver.getProperty("mybatis.mapperLocations")));
-        logger.info("================================end  init  sqlSessionFactory =======================");
         return sessionFactory.getObject();
     }
 

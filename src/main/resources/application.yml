@@ -4,12 +4,14 @@ projectPath:
 server:  
     port: 8088
     address: localhost
+
+
 # SPRING PROFILES
-spring:         
-    # HTTP ENCODING  
-    http:  
-        encoding.charset: UTF-8  
-        encoding.enable: true  
+spring:
+    # HTTP ENCODING
+    http:
+        encoding.charset: UTF-8
+        encoding.enable: true
         encoding.force: true
     mvc:
         prefix: /static/
@@ -39,20 +41,31 @@ spring:
         pool.maxIdle: 300
         pool.maxTotal: 60000
         pool.testOnBorrow: true
+
+#shiro settings
 shiro:
     session:
-      sessionTimeOut: 1800000
-      sessionValidationInterval: 120000
-      sessionValidationSchedulerEnabled: true
-      sessionIdCookieEnabled: true
+        sessionTimeOut: 1800000
+        sessionValidationInterval: 120000
+        sessionValidationSchedulerEnabled: true
+        sessionIdCookieEnabled: true
     cookie:
-      name: grass.session.id
+        name: grass.session.id
     ehcache:
-      configFilePath: classpath:ehcache-shiro.xml
+        configFilePath: classpath:ehcache-shiro.xml
     path:
-      loginUrl: /login
-      successUrl: /success
-      map:
-        ${spring.mvc.adminPath}/a: authc
-        ${spring.mvc.adminPath}/b: anon
-        ${spring.mvc.adminPath}/c: user
+        loginUrl: /login
+        successUrl: /success
+        failureUrl: /login
+        map:
+            /admin/user/**: user
+            /admin: authc
+            /admin/th: anon
+
+    cas:
+        casServerUrlPrefix: https://localhost:8443/cas
+        casLoginUrl: https://localhost:8443/cas/login
+        casLogoutUrl: https://localhost:8443/cas/logout
+        shiroServerUrlPrefix: http://localhost:8088
+        casFilterUrlPattern: /shiro-cas
+        loginUrl: https://localhost:8443/cas/login?service=http://localhost:8088/shiro-cas

@@ -18,25 +18,26 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
      */
     @Override
     protected String[] getServletMappings() {
+        logger.info("grass-----WebInitializer-----getServletMappings-------------init");
         return new String[]{"/"};
     }
 
     /*
       * 应用上下文，除web部分
 	  */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     protected Class[] getRootConfigClasses() {
+        logger.info("grass-----WebInitializer-----getRootConfigClasses-------------init");
         return new Class[]{};
     }
 
     /*
       * web上下文
 	  */
-    @SuppressWarnings({"unchecked", "rawtypes"})
     @Override
     protected Class[] getServletConfigClasses() {
-        return new Class[]{MvcConfig.class};
+        logger.info("grass-----WebInitializer-----getServletConfigClasses-------------init");
+        return new Class[]{};
     }
 
     /*
@@ -44,6 +45,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	  */
     @Override
     protected Filter[] getServletFilters() {
+        logger.info("grass-----WebInitializer-----getServletFilters-------------init");
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
@@ -61,9 +63,9 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        System.err.print("--------------------开始加载WebApplicationConfig-----------------------");
+        logger.info("grass-----WebInitializer-----onStartup-------------init");
         ServletRegistration.Dynamic druidStatView = servletContext.addServlet("DruidStatView", StatViewServlet.class);
         druidStatView.addMapping("/druid/*");
-        System.err.print("--------------------结束加载WebApplicationConfig-----------------------");
+
     }
 }

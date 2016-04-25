@@ -19,6 +19,7 @@ import org.springframework.cache.interceptor.SimpleKeyGenerator;
 import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -34,6 +35,7 @@ import java.util.Set;
  */
 @Configuration
 @EnableCaching
+@Order(1)
 public class CachingConfig extends CachingConfigurerSupport {
     /**
      * 日志对象
@@ -41,17 +43,17 @@ public class CachingConfig extends CachingConfigurerSupport {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     // --------------  Cache Cofig --------------
-    @Bean(name = "cacheResolver")
+    @Bean
     @Override
     public CacheResolver cacheResolver() {
-        logger.info("--------------------开始加载CacheResolver-----------------------");
+        logger.info("grass-----CachingConfig-----cacheResolver-------------init");
         return new CustomCacheResolver();
     }
 
-    @Bean(name = "cacheManager")
+    @Bean
     @Override
     public CacheManager cacheManager() {
-        logger.info("--------------------开始加载-cacheManager-----------------------");
+        logger.info("grass-----CachingConfig-----cacheManager-------------init");
 //        Set<CacheManager> caches = new LinkedHashSet<>();
 //        caches.add(ehCacheCacheManager());
 //        caches.add(redisCacheManager());
@@ -63,13 +65,13 @@ public class CachingConfig extends CachingConfigurerSupport {
 
     @Override
     public KeyGenerator keyGenerator() {
-        logger.info("--------------------开始加载-keyGenerator-----------------------");
+        logger.info("grass-----CachingConfig-----keyGenerator-------------init");
         return new SimpleKeyGenerator();
     }
 
     @Override
     public CacheErrorHandler errorHandler() {
-        logger.info("--------------------开始加载-errorHandler-----------------------");
+        logger.info("grass-----CachingConfig-----errorHandler-------------init");
         return new CustomCacheErronrHandler();
     }
 
@@ -92,19 +94,19 @@ public class CachingConfig extends CachingConfigurerSupport {
     //-----------------redis config------------------------------
     @Bean
     public RedisCacheManager redisCacheManager() {
-        logger.info("--------------------开始加载-redisCacheManager-----------------------");
+        logger.info("grass-----CachingConfig-----redisCacheManager-------------init");
         return new RedisCacheManager(redisTemplate());
     }
 
     @Bean
     public JedisConnectionFactory jedisConnectionFactory() {
-        logger.info("--------------------开始加载-jedisConnectionFactory-----------------------");
+        logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------init");
         return new JedisConnectionFactory();
     }
 
     @Bean
     public RedisTemplate<String, String> redisTemplate() {
-        logger.info("--------------------开始加载-redisTemplate-----------------------");
+        logger.info("grass-----CachingConfig-----redisTemplate-------------init");
         StringRedisTemplate template = new StringRedisTemplate(jedisConnectionFactory());
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
