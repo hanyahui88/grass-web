@@ -54,13 +54,14 @@ shiro:
     ehcache:
         configFilePath: classpath:ehcache-shiro.xml
     path:
-        loginUrl: /login
+        loginUrl: /
         successUrl: /success
-        failureUrl: /login
+        failureUrl: /
         map:
             /admin/user/**: user
             /admin: authc
             /admin/th: anon
+            /login: anon
 
     cas:
         casServerUrlPrefix: https://localhost:8443/cas

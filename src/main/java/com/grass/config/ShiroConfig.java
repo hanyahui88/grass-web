@@ -106,7 +106,7 @@ public class ShiroConfig implements EnvironmentAware {
         //获取map是有问题，会给每个键之前加一个"."，所以把点去掉
         Map<String, Object> map = propertyResolver.getSubProperties("path.map");
 //       整合cas配置
-//        Map<String, Filter> filters = new HashMap<>();
+//        Map<String, Filter> filters = Maps.newHashMap();
 //        filters.put("casFilter", casFilter());
 //        shiroFilterFactoryBean.setFilters(filters);
         Map<String, String> chainMap = Maps.newHashMap();

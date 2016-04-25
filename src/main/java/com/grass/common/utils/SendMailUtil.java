@@ -3,6 +3,7 @@
  */
 package com.grass.common.utils;
 
+import com.google.common.collect.Maps;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import org.apache.commons.mail.HtmlEmail;
@@ -27,7 +28,7 @@ public class SendMailUtil {
 	private static final String username = "admin@163.com";
 	private static final String password = "123456";
 
-	private static Map<String, String> hostMap = new HashMap<String, String>();
+	private static Map<String, String> hostMap = Maps.newHashMap();
 	static {
 		// 126
 		hostMap.put("smtp.126", "smtp.126.com");
@@ -281,7 +282,7 @@ public class SendMailUtil {
 		// e.printStackTrace();
 		// System.out.println("email send error!");
 		// }
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> map = Maps.newHashMap();
 		map.put("subject", "测试标题");
 		map.put("content", "测试 内容");
 		String templatePath = "mailtemplate/test.ftl";

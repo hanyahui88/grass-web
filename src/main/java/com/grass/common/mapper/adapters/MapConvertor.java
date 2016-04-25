@@ -1,5 +1,7 @@
 package com.grass.common.mapper.adapters;
 
+import com.google.common.collect.Lists;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlType;
@@ -11,7 +13,7 @@ import java.util.Map;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class MapConvertor {
 	
-    private List<MapEntry> entries = new ArrayList<MapEntry>();
+    private List<MapEntry> entries = Lists.newArrayList();
   
     public void addEntry(MapEntry entry) {  
         entries.add(entry);  

@@ -3,6 +3,7 @@ package com.grass.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Sets;
 import com.grass.common.cache.CustomCacheErronrHandler;
 import com.grass.common.cache.CustomCacheResolver;
 import org.slf4j.Logger;
@@ -54,7 +55,7 @@ public class CachingConfig extends CachingConfigurerSupport {
     @Override
     public CacheManager cacheManager() {
         logger.info("grass-----CachingConfig-----cacheManager-------------init");
-//        Set<CacheManager> caches = new LinkedHashSet<>();
+//        Set<CacheManager> caches =Sets.newLinkedHashSet();
 //        caches.add(ehCacheCacheManager());
 //        caches.add(redisCacheManager());
 //        CompositeCacheManager compositeCacheManager = new CompositeCacheManager();

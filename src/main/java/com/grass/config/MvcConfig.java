@@ -47,7 +47,7 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         logger.info("grass-----MvcConfig-----addViewControllers-------------init");
-        registry.addViewController("/").setViewName("forward:/static/index.html");
+        registry.addViewController("/").setViewName("forward:/static/login.html");
         registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
         super.addViewControllers(registry);
     }
