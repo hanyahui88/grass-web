@@ -28,9 +28,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 /**
  * Created by 韩亚辉 on 2016/4/20.
  */
@@ -75,23 +72,6 @@ public class CachingConfig extends CachingConfigurerSupport {
         logger.info("grass-----CachingConfig-----errorHandler-------------init");
         return new CustomCacheErronrHandler();
     }
-
-    // --------------  EhCache config --------------
-//    @Bean
-//    public EhCacheCacheManager ehCacheCacheManager() {
-//        logger.info("--------------------开始加载-ehCacheCacheManager-----------------------");
-//        return new EhCacheCacheManager(ehCacheManagerFactoryBean().getObject());
-//    }
-//
-//    @Bean
-//    public EhCacheManagerFactoryBean ehCacheManagerFactoryBean() {
-//        logger.info("--------------------开始加载-ehCacheManagerFactoryBean-----------------------");
-//        EhCacheManagerFactoryBean factoryBean = new EhCacheManagerFactoryBean();
-//        factoryBean.setConfigLocation(new ClassPathResource("ehcache-shiro.xml"));
-//        factoryBean.setShared(true);
-//        return factoryBean;
-//    }
-
     //-----------------redis config------------------------------
     @Bean
     public RedisCacheManager redisCacheManager() {

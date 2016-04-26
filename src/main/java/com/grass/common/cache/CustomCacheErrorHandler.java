@@ -6,7 +6,7 @@ import org.springframework.cache.interceptor.CacheErrorHandler;
 /**
  * Created by 韩亚辉 on 2016/4/16.
  */
-public class CustomCacheErronrHandler implements CacheErrorHandler {
+public class CustomCacheErrorHandler implements CacheErrorHandler {
     @Override
     public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {
         System.out.println("cache get error");

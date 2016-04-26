@@ -34,8 +34,8 @@ import java.util.Map;
  * shiro 配置文件
  * Created by yahui on 2016/4/24.
  */
-@Configuration
-@Order(5)
+//@Configuration
+//@Order(5)
 public class ShiroConfig implements EnvironmentAware {
     private RelaxedPropertyResolver propertyResolver;
 
@@ -112,7 +112,6 @@ public class ShiroConfig implements EnvironmentAware {
         Map<String, String> chainMap = Maps.newHashMap();
         for (String item : map.keySet()) {
             chainMap.put(item.substring(1), map.get(item) + "");
-            logger.info("=========key: "+item+"value: "+map.get(item));
         }
         shiroFilterFactoryBean
                 .setFilterChainDefinitionMap(chainMap);

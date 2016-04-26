@@ -16,6 +16,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/${adminPath}/user")
+
 public class UserController {
 
     @Autowired
