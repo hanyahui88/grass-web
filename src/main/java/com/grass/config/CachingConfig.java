@@ -61,7 +61,7 @@ public class CachingConfig extends CachingConfigurerSupport {
 //        CompositeCacheManager compositeCacheManager = new CompositeCacheManager();
 //        compositeCacheManager.setCacheManagers(caches);
 //        compositeCacheManager.setFallbackToNoOpCache(true);
-        return redisCacheManager();
+        return this.redisCacheManager();
     }
 
     @Override
@@ -96,25 +96,29 @@ public class CachingConfig extends CachingConfigurerSupport {
     @Bean
     public RedisCacheManager redisCacheManager() {
         logger.info("grass-----CachingConfig-----redisCacheManager-------------init");
-        return new RedisCacheManager(redisTemplate());
+        return new RedisCacheManager(this.redisTemplate());
     }
 
     @Bean
-    public JedisConnectionFactory jedisConnectionFactory() {
+    public JedisConnectionFactory redisConnectionFactory() {
         logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------init");
-        return new JedisConnectionFactory();
+        JedisConnectionFactory jedisConnectionFactory =
+                new JedisConnectionFactory();
+        jedisConnectionFactory.afterPropertiesSet();
+        return jedisConnectionFactory;
     }
 
     @Bean
     public RedisTemplate<String, String> redisTemplate() {
         logger.info("grass-----CachingConfig-----redisTemplate-------------init");
-        StringRedisTemplate template = new StringRedisTemplate(jedisConnectionFactory());
+        StringRedisTemplate template = new StringRedisTemplate(this.redisConnectionFactory());
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
         om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
         jackson2JsonRedisSerializer.setObjectMapper(om);
         template.setValueSerializer(jackson2JsonRedisSerializer);
+        template.setConnectionFactory(this.redisConnectionFactory());
         template.afterPropertiesSet();
         return template;
     }
