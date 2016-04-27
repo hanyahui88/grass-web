@@ -3,30 +3,29 @@ package com.grass.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.collect.Sets;
-import com.grass.common.cache.CustomCacheErronrHandler;
+import com.grass.common.cache.CustomCacheErrorHandler;
 import com.grass.common.cache.CustomCacheResolver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
-import org.springframework.cache.ehcache.EhCacheManagerFactoryBean;
 import org.springframework.cache.interceptor.CacheErrorHandler;
 import org.springframework.cache.interceptor.CacheResolver;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.interceptor.SimpleKeyGenerator;
-import org.springframework.cache.support.CompositeCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Created by 韩亚辉 on 2016/4/20.
@@ -34,7 +33,32 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 @Configuration
 @EnableCaching
 @Order(1)
+@ConfigurationProperties(prefix = "spring.redis.")
 public class CachingConfig extends CachingConfigurerSupport {
+
+    @Value("${keyPrefix}")
+    private String keyPrefix;
+    @Value("${hostName}")
+    private String hostName;
+    @Value("${port}")
+    private int port;
+    @Value("${password}")
+    private String password;
+    @Value("${timeout}")
+    private int timeout;
+    @Value("${database}")
+    private int database;
+    //最大能够保持idel状态的对象数
+    @Value("${pool.maxIdle}")
+    private int maxIdle;
+    //最大分配的对象数
+    @Value("${pool.maxTotal}")
+    private int maxTotal;
+    //当调用borrow Object方法时，是否进行有效性检查
+    @Value("${pool.testOnBorrow}")
+    private boolean testOnBorrow;
+    @Value("${enableTransactionSupport}")
+    private boolean enableTransactionSupport;
     /**
      * 日志对象
      */
@@ -70,8 +94,9 @@ public class CachingConfig extends CachingConfigurerSupport {
     @Override
     public CacheErrorHandler errorHandler() {
         logger.info("grass-----CachingConfig-----errorHandler-------------init");
-        return new CustomCacheErronrHandler();
+        return new CustomCacheErrorHandler();
     }
+
     //-----------------redis config------------------------------
     @Bean
     public RedisCacheManager redisCacheManager() {
@@ -100,6 +125,40 @@ public class CachingConfig extends CachingConfigurerSupport {
         template.setValueSerializer(jackson2JsonRedisSerializer);
         template.setConnectionFactory(this.redisConnectionFactory());
         template.afterPropertiesSet();
+        template.setConnectionFactory(jedisConnectionFactory());
+//        template.setEnableTransactionSupport(this.enableTransactionSupport);
         return template;
     }
+
+    @Bean
+    public JedisPoolConfig jedisPoolConfig() {
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxIdle(this.maxIdle);
+        jedisPoolConfig.setMaxTotal(this.maxTotal);
+        jedisPoolConfig.setTestOnBorrow(this.testOnBorrow);
+        return jedisPoolConfig;
+    }
+
+    @Bean
+    public JedisPool jedisPool() {
+        JedisPool jedisPool = new JedisPool(jedisPoolConfig(), this.hostName, this.port, this.timeout, this.password, this.database);
+        return jedisPool;
+    }
+
+    @Bean
+    public JedisConnectionFactory jedisConnectionFactory() {
+        logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------init");
+        logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------hostname:" + this.keyPrefix);
+        logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------hostname:" + this.hostName);
+        logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------hostname:" + this.port);
+        logger.info("grass-----CachingConfig-----jedisConnectionFactory-------------hostname:" + this.password);
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.setHostName(this.hostName);
+        jedisConnectionFactory.setPort(this.port);
+        jedisConnectionFactory.setDatabase(this.database);
+        jedisConnectionFactory.setPassword(this.password);
+        jedisConnectionFactory.setPoolConfig(jedisPoolConfig());
+        return new JedisConnectionFactory();
+    }
+
 }
