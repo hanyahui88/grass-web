@@ -25,7 +25,6 @@ public class UserController {
     @RequestMapping("/findAll")
     @ResponseBody
     public List<UserEntity> findAll() {
-        Object obj1 = SpringContextHolder.getBean("cacheManager");
         return userService.findAll();
     }
 

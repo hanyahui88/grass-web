@@ -1,8 +1,10 @@
 package com.grass.module.sys.user.service;
 
-import com.grass.module.sys.user.mapper.UserMapper;
 import com.grass.module.sys.user.entity.UserEntity;
+import com.grass.module.sys.user.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,14 +18,15 @@ public class UserService {
     @Autowired
     private UserMapper userDao;
 
-    @Cacheable(key ="com.grass.module.sys.user.service.UserService")
+    @Cacheable("findAll")
     public List<UserEntity> findAll() {
         System.out.println("findall");
         return userDao.findAll();
     }
-    @Cacheable("usre")
+
+    @Cacheable()
     public UserEntity get(String id) {
-        System.out.println("findall");
+        System.out.println("get");
         return userDao.get(id);
     }
 }

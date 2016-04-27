@@ -3,6 +3,7 @@ package com.grass.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -48,6 +50,21 @@ public class DataSourceConfig implements EnvironmentAware {
         dataSource.setDriverClassName(propertyResolver.getProperty("datasource.driverClassName"));
         dataSource.setUsername(propertyResolver.getProperty("datasource.username"));
         dataSource.setPassword(propertyResolver.getProperty("datasource.password"));
+        dataSource.setMaxActive(propertyResolver.getProperty("datasource.maxActive",Integer.class));
+        dataSource.setMinIdle(propertyResolver.getProperty("datasource.minIdle",Integer.class));
+        dataSource.setTimeBetweenEvictionRunsMillis(propertyResolver.getProperty("datasource.timeBetweenEvictionRunsMillis",Long.class));
+        dataSource.setMinEvictableIdleTimeMillis(propertyResolver.getProperty("datasource.minEvictableIdleTimeMillis",Long.class));
+        dataSource.setValidationQuery(propertyResolver.getProperty("datasource.validationQuery"));
+        dataSource.setTestWhileIdle(propertyResolver.getProperty("datasource.testWhileIdle",Boolean.class));
+        dataSource.setTestOnBorrow(propertyResolver.getProperty("datasource.testOnBorrow",Boolean.class));
+        dataSource.setTestOnReturn(propertyResolver.getProperty("datasource.testOnReturn",Boolean.class));
+        dataSource.setPoolPreparedStatements(propertyResolver.getProperty("datasource.poolPreparedStatements",Boolean.class));
+        dataSource.setMaxOpenPreparedStatements(propertyResolver.getProperty("datasource.maxOpenPreparedStatements",Integer.class));
+        try{
+            dataSource.setFilters(propertyResolver.getProperty("datasource.filters"));
+        }catch (Exception e){
+            return dataSource;
+        }
         return dataSource;
     }
 
@@ -99,10 +116,15 @@ public class DataSourceConfig implements EnvironmentAware {
         properties.put("reasonable", true);
         properties.put("supportMethodsArguments", true);
         properties.put("returnPageInfo", "check");
+        properties.put("mapUnderscoreToCamelCase", true);
+        properties.put("cacheEnabled", true);
+        properties.put("logImpl", "LOG4J2'");
         pageHelper.setProperties(properties);
         interceptors[0] = pageHelper;
         sessionFactory.setPlugins(interceptors);
         sessionFactory.setTypeAliasesPackage(propertyResolver.getProperty("mybatis.typeAliasesPackage"));
+        logger.info(propertyResolver.getProperty("mybatis.typeAliasesPackage"));
+        logger.info(propertyResolver.getProperty("mybatis.mapperLocations"));
         sessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(propertyResolver.getProperty("mybatis.mapperLocations")));
         return sessionFactory.getObject();
     }
