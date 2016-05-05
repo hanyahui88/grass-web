@@ -2,7 +2,14 @@ package com.grass.common.persistence;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.grass.common.utils.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -11,8 +18,9 @@ import java.util.List;
  * Created by 韩亚辉 on 2016/4/19.
  */
 @Transactional(readOnly = true)
-public abstract class CommonService<T extends CommonEntiry<T>, D extends BaseDao<T>> extends BaseService {
-
+@CacheConfig(cacheNames = "list")
+public abstract class CommonService<T extends CommonEntiry, D extends CommonMapper<T>> {
+    protected Logger logger = LoggerFactory.getLogger(CommonService.class);
     /**
      * 持久层对象
      */
@@ -45,6 +53,7 @@ public abstract class CommonService<T extends CommonEntiry<T>, D extends BaseDao
      * @param entity
      * @return
      */
+    @Cacheable
     public List<T> findList(T entity) {
         return dao.findList(entity);
     }
@@ -69,8 +78,9 @@ public abstract class CommonService<T extends CommonEntiry<T>, D extends BaseDao
      * @param entity
      */
     @Transactional(readOnly = false)
+    @CachePut
     public void save(T entity) {
-        if (entity.getNewRecord()) {
+        if (StringUtils.isNoneBlank(entity.getId())) {
             entity.preInsert();
             dao.insert(entity);
         } else {
@@ -85,6 +95,7 @@ public abstract class CommonService<T extends CommonEntiry<T>, D extends BaseDao
      * @param entity
      */
     @Transactional(readOnly = false)
+    @CacheEvict
     public void delete(T entity) {
         dao.delete(entity);
     }

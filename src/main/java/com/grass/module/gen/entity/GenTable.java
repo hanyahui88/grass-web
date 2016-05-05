@@ -16,7 +16,7 @@ import java.util.List;
  * @author hanyahui
  * @version 2013-10-15
  */
-public class GenTable extends CommonEntiry<GenTable> {
+public class GenTable extends CommonEntiry {
 
     private static final long serialVersionUID = 1L;
     private String name;    // 名称

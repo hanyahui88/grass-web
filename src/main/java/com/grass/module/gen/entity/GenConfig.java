@@ -19,7 +19,7 @@ import java.util.List;
  * @version 2013-10-15
  */
 @XmlRootElement(name = "config")
-public class GenConfig extends CommonEntiry<GenConfig> implements Serializable {
+public class GenConfig extends CommonEntiry implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private List<GenCategory> categoryList;    // 代码模板分类

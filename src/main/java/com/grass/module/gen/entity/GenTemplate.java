@@ -19,7 +19,7 @@ import java.util.List;
  * @version 2013-10-15
  */
 @XmlRootElement(name = "template")
-public class GenTemplate extends CommonEntiry<GenTemplate> {
+public class GenTemplate extends CommonEntiry {
 
     private static final long serialVersionUID = 1L;
     private String name;    // 名称
@@ -32,9 +32,6 @@ public class GenTemplate extends CommonEntiry<GenTemplate> {
         super();
     }
 
-    public GenTemplate(String id) {
-        super(id);
-    }
 
     @Length(min = 1, max = 200)
     public String getName() {

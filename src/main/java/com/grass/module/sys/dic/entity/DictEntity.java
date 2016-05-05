@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author hanyahui
  * @version 2013-05-15
  */
-public class DictEntity extends CommonEntiry<DictEntity> {
+public class DictEntity extends CommonEntiry {
 
     private static final long serialVersionUID = 1L;
     private String value;    // 数据值

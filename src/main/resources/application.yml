@@ -79,7 +79,6 @@ shiro:
             /admin: authc
             /admin/th: anon
             /login: anon
-
     cas:
         casServerUrlPrefix: https://localhost:8443/cas
         casLoginUrl: https://localhost:8443/cas/login

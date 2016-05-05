@@ -187,6 +187,10 @@ public abstract class BaseController {
         return "error/403";
     }
 
+    @ExceptionHandler
+    public void exception (Exception e){
+        e.printStackTrace();
+    }
     /**
      * 初始化数据绑定
      * 1. 将所有传递进来的String进行HTML编码，防止XSS攻击

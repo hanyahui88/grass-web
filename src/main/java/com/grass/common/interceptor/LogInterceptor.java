@@ -4,7 +4,7 @@ package com.grass.common.interceptor;
  * Created by 韩亚辉 on 2016/4/16.
  */
 
-import com.grass.common.persistence.BaseService;
+import com.grass.common.persistence.CommonService;
 import com.grass.common.utils.DateUtils;
 import org.springframework.core.NamedThreadLocal;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
 
 
-public class LogInterceptor extends BaseService implements HandlerInterceptor {
+public class LogInterceptor extends CommonService implements HandlerInterceptor {
 
     private static final ThreadLocal<Long> startTimeThreadLocal =
             new NamedThreadLocal<Long>("ThreadLocal StartTime");

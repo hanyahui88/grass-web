@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Length;
  * @author hanyahui
  * @version 2013-10-15
  */
-public class GenScheme extends CommonEntiry<GenScheme> {
+public class GenScheme extends CommonEntiry {
 
     private static final long serialVersionUID = 1L;
     private String name;    // 名称
@@ -33,9 +33,6 @@ public class GenScheme extends CommonEntiry<GenScheme> {
         super();
     }
 
-    public GenScheme(String id) {
-        super(id);
-    }
 
     @Length(min = 1, max = 200)
     public String getName() {

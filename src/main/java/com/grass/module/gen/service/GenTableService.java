@@ -5,13 +5,13 @@ package com.grass.module.gen.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.grass.common.persistence.BaseService;
+import com.grass.common.persistence.CommonService;
 import com.grass.common.utils.StringUtils;
+import com.grass.module.gen.entity.GenTable;
+import com.grass.module.gen.entity.GenTableColumn;
 import com.grass.module.gen.mapper.GenDataBaseDictMapper;
 import com.grass.module.gen.mapper.GenTableColumnMapper;
 import com.grass.module.gen.mapper.GenTableMapper;
-import com.grass.module.gen.entity.GenTable;
-import com.grass.module.gen.entity.GenTableColumn;
 import com.grass.module.gen.util.GenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class GenTableService extends BaseService {
+public class GenTableService extends CommonService<GenTable,GenTableMapper> {
 
     @Autowired
     private GenTableMapper genTableDao;

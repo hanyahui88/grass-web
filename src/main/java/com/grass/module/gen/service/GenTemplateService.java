@@ -5,10 +5,10 @@ package com.grass.module.gen.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.grass.common.persistence.BaseService;
+import com.grass.common.persistence.CommonService;
 import com.grass.common.utils.StringUtils;
-import com.grass.module.gen.mapper.GenTemplateMapper;
 import com.grass.module.gen.entity.GenTemplate;
+import com.grass.module.gen.mapper.GenTemplateMapper;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 @Transactional(readOnly = true)
-public class GenTemplateService extends BaseService {
+public class GenTemplateService extends CommonService<GenTemplate, GenTemplateMapper> {
 
     @Autowired
     private GenTemplateMapper genTemplateDao;

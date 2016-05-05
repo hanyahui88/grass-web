@@ -1,11 +1,14 @@
 package com.grass.common.persistence;
 
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Created by 韩亚辉 on 2016/4/19.
  */
-public abstract class CommonEntiry<T> extends BaseEntity<T> {
+public abstract class CommonEntiry {
     protected String remarks;    // 备注
     protected String createUser;    // 创建者
     protected String createUserName;    // 创建者
@@ -15,14 +18,48 @@ public abstract class CommonEntiry<T> extends BaseEntity<T> {
     protected Date updateDate;    // 更新日期
     protected String delFlag;    // 删除标记（0：正常；1：删除；2：审核）
 
+
+    /**
+     * 删除标记（0：正常；1：删除；2：审核；）
+     */
+    public static final String DEL_FLAG_NORMAL = "0";
+    public static final String DEL_FLAG_DELETE = "1";
+    public static final String DEL_FLAG_AUDIT = "2";
+    protected String id;
+    protected Boolean newRecord;
+
     public CommonEntiry() {
-        super();
         this.delFlag = DEL_FLAG_NORMAL;
     }
 
     public CommonEntiry(String id) {
-        super(id);
+        this();
+        this.id = id;
     }
+
+
+    /**
+     * 是否是新记录（默认：false），调用setIsNewRecord()设置新记录，使用自定义ID。
+     * 设置为true后强制执行插入语句，ID不会自动生成，需从手动传入。
+     *
+     * @return
+     */
+    public Boolean getNewRecord() {
+        return newRecord;
+    }
+
+    public void setNewRecord(Boolean newRecord) {
+        this.newRecord = newRecord;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public String getRemarks() {
         return remarks;
@@ -88,12 +125,9 @@ public abstract class CommonEntiry<T> extends BaseEntity<T> {
         this.delFlag = delFlag;
     }
 
-    @Override
     public void preInsert() {
         // 不限制ID为UUID，调用setIsNewRecord()使用自定义ID
-//        if (!this.isNewRecord){
-//            setId(IdGen.uuid());
-//        }
+        setId(UUID.randomUUID() + "");
 //        User user = UserUtils.getUser();
 //        if (StringUtils.isNotBlank(user.getId())){
 //            this.updateBy = user;
@@ -102,7 +136,6 @@ public abstract class CommonEntiry<T> extends BaseEntity<T> {
         this.createDate = this.updateDate;
     }
 
-    @Override
     public void preUpdate() {
 //        User user = UserUtils.getUser();
 //        if (StringUtils.isNotBlank(user.getId())){
@@ -110,4 +143,10 @@ public abstract class CommonEntiry<T> extends BaseEntity<T> {
 //        }
         this.updateDate = new Date();
     }
+
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this);
+    }
+
 }

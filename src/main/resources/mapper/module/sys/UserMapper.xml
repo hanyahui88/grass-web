@@ -4,4 +4,10 @@
     <select id="get" resultType="com.grass.module.sys.user.entity.UserEntity">
         select name,age from sys_user where id=#{id}
     </select>
+    <select id="findList" resultType="com.grass.module.sys.user.entity.UserEntity">
+        select name,age from sys_user
+    </select>
+    <insert id="insert">
+        insert into sys_user (id,name,age) values (#{id},#{name},${age})
+    </insert>
 </mapper>

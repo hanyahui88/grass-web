@@ -6,12 +6,12 @@ package com.grass.module.gen.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.grass.common.persistence.BaseService;
+import com.grass.common.persistence.CommonService;
 import com.grass.common.utils.StringUtils;
+import com.grass.module.gen.entity.*;
 import com.grass.module.gen.mapper.GenSchemeMapper;
 import com.grass.module.gen.mapper.GenTableColumnMapper;
 import com.grass.module.gen.mapper.GenTableMapper;
-import com.grass.module.gen.entity.*;
 import com.grass.module.gen.util.GenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Service
 @Transactional(readOnly = true)
-public class GenSchemeService extends BaseService {
+public class GenSchemeService extends CommonService<GenScheme, GenSchemeMapper> {
     @Autowired
     private GenSchemeMapper genSchemeDao;
     @Autowired
@@ -48,7 +48,7 @@ public class GenSchemeService extends BaseService {
     }
 
     @Transactional(readOnly = false)
-    public String save(GenScheme genScheme) {
+    public String saveScheme(GenScheme genScheme) {
         if (StringUtils.isBlank(genScheme.getId())) {
             genScheme.preInsert();
             genSchemeDao.insert(genScheme);

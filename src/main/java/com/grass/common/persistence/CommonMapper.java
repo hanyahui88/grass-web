@@ -3,9 +3,9 @@ package com.grass.common.persistence;
 import java.util.List;
 
 /**
- * Created by 韩亚辉 on 2016/4/5.
+ * Created by 韩亚辉 on 2016/4/19.
  */
-public interface BaseDao<T> {
+public interface CommonMapper<T>{
     /**
      * 获取单条数据
      *

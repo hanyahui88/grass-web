@@ -3,7 +3,7 @@
  */
 package com.grass.module.gen.mapper;
 
-import com.grass.common.persistence.BaseDao;
+import com.grass.common.persistence.CommonMapper;
 import com.grass.module.gen.entity.GenTable;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @version 2013-10-15
  */
 @Repository
-public interface GenTableMapper extends BaseDao<GenTable> {
+public interface GenTableMapper extends CommonMapper<GenTable> {
 
 }
