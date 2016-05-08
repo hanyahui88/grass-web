@@ -57,7 +57,6 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	  */
     @Override
     protected void customizeRegistration(ServletRegistration.Dynamic registration) {
-        //registration.setInitParameter("spring.profiles.active", "default");
 
     }
 

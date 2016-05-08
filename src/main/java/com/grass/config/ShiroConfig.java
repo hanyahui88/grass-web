@@ -1,12 +1,8 @@
 package com.grass.config;
 
 import com.beust.jcommander.internal.Maps;
-import com.grass.module.shiro.realm.GrassCasRealm;
-import com.grass.module.shiro.realm.GrassRealm;
+import com.grass.module.shiro.realm.SystemAuthorizingRealm;
 import org.apache.shiro.cache.ehcache.EhCacheManager;
-import org.apache.shiro.cas.CasFilter;
-import org.apache.shiro.cas.CasSubjectFactory;
-import org.apache.shiro.mgt.DefaultSubjectFactory;
 import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
@@ -26,16 +22,14 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.env.Environment;
 import org.springframework.web.filter.DelegatingFilterProxy;
 
-import javax.servlet.Filter;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * shiro 配置文件
  * Created by yahui on 2016/4/24.
  */
-//@Configuration
-//@Order(5)
+@Configuration
+@Order(5)
 public class ShiroConfig implements EnvironmentAware {
     private RelaxedPropertyResolver propertyResolver;
 
@@ -47,8 +41,8 @@ public class ShiroConfig implements EnvironmentAware {
     private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
 
     @Bean
-    public GrassRealm grassRealm() {
-        return new GrassRealm();
+    public SystemAuthorizingRealm grassRealm() {
+        return new SystemAuthorizingRealm();
     }
 
     @Bean
@@ -78,8 +72,8 @@ public class ShiroConfig implements EnvironmentAware {
         DefaultWebSecurityManager dwsm = new DefaultWebSecurityManager();
         dwsm.setRealm(grassRealm());
         dwsm.setSessionManager(sessionManager());
-//        dwsm.setSubjectFactory(new DefaultSubjectFactory());
         dwsm.setCacheManager(ehCacheManager());
+//        dwsm.setSubjectFactory(new DefaultSubjectFactory());
 //        整合cas设置
 //        dwsm.setRealm(GrassCasRealm());
 //        dwsm.setSubjectFactory(new CasSubjectFactory());

@@ -118,7 +118,6 @@ public class DataSourceConfig implements EnvironmentAware {
         properties.put("returnPageInfo", "check");
         properties.put("mapUnderscoreToCamelCase", true);
         properties.put("cacheEnabled", true);
-        properties.put("logImpl", "LOG4J2");
         interceptors[0] = pageHelper;
         sessionFactory.setPlugins(interceptors);
         sessionFactory.setConfigurationProperties(properties);

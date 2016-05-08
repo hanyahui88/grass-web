@@ -10,7 +10,6 @@ public class CustomCacheErrorHandler implements CacheErrorHandler {
     @Override
     public void handleCacheGetError(RuntimeException exception, Cache cache, Object key) {
         exception.printStackTrace();
-        System.out.println("cache get error");
     }
 
     @Override

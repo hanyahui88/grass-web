@@ -10,18 +10,22 @@
 </head>
 <body layout="column" ng-app="MyApp" class="bkgrnd" ng-cloak>
 <div layout="row" style="margin-top: 24px;" class="md-whiteframe-3dp">
-    <div flex flex-offset="80"></div>
+    <div flex flex-offset="70"></div>
 
-    <div flex class="three">
-        <md-input-container>
-            <label>Username</label>
-            <input type="text" ng-model="user.name">
-        </md-input-container>
-        <md-input-container>
-            <label>password</label>
-            <input type="password" ng-model="user.password">
-        </md-input-container>
-    </div>
+    <form action="/login" method="post">
+        <div flex class="three">
+            <md-input-container>
+                <label>用户名</label>
+                <input type="text" ng-model="user.name" name="username">
+            </md-input-container>
+            <md-input-container>
+                <label>密码</label>
+                <input type="password" ng-model="user.password" name="password">
+            </md-input-container>
+            <input type="submit"value="提交"/>
+        </div>
+
+    </form>
 </div>
 
 
@@ -41,6 +45,7 @@ Use of this source code is governed by an MIT-style license that can be in found
 <script src="static/js/angular-1.3.15/angular-aria.min.js"></script>
 <script src="static/js/angular-material-1.1.0/angular-material.min.js"></script>
 <script src="static/js/angular-material-icons-0.7.0/angular-material-icons.min.js"></script>
+<script src="static/js/login.js"></script>
 <script>
     angular.module('MyApp', ['ngMaterial', 'ngMdIcons']);
 </script>

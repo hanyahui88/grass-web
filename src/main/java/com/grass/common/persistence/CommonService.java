@@ -18,7 +18,6 @@ import java.util.List;
  * Created by 韩亚辉 on 2016/4/19.
  */
 @Transactional(readOnly = true)
-@CacheConfig(cacheNames = "list")
 public abstract class CommonService<T extends CommonEntiry, D extends CommonMapper<T>> {
     protected Logger logger = LoggerFactory.getLogger(CommonService.class);
     /**
@@ -53,7 +52,6 @@ public abstract class CommonService<T extends CommonEntiry, D extends CommonMapp
      * @param entity
      * @return
      */
-    @Cacheable
     public List<T> findList(T entity) {
         return dao.findList(entity);
     }
@@ -78,7 +76,6 @@ public abstract class CommonService<T extends CommonEntiry, D extends CommonMapp
      * @param entity
      */
     @Transactional(readOnly = false)
-    @CachePut
     public void save(T entity) {
         if (StringUtils.isNoneBlank(entity.getId())) {
             entity.preInsert();
@@ -95,8 +92,9 @@ public abstract class CommonService<T extends CommonEntiry, D extends CommonMapp
      * @param entity
      */
     @Transactional(readOnly = false)
-    @CacheEvict
     public void delete(T entity) {
         dao.delete(entity);
     }
+
+
 }
