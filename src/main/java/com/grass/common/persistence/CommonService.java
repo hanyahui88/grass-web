@@ -6,10 +6,6 @@ import com.grass.common.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -54,6 +50,15 @@ public abstract class CommonService<T extends CommonEntiry, D extends CommonMapp
      */
     public List<T> findList(T entity) {
         return dao.findList(entity);
+    }
+
+    /**
+     * 查询所有的数据
+     *
+     * @return
+     */
+    public List<T> findAll() {
+        return dao.findAll();
     }
 
     /**
