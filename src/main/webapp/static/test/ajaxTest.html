@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试ajax</title>
+</head>
+<body>
+<button value="显示数据吧" onclick="showData1()">显示数据吧</button>
+<table>
+    <thead>
+    <th>姓名</th>
+    <th>年龄</th>
+    <th>性别</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+</body>
+<script src="../js/jquery-2.2.3/jquery-2.2.3.js"></script>
+<script>
+    function showData() {
+        $.get("localhost:8088/admin/user/findAll",
+                function (data) {
+                    if (data.code == 200) {
+                        if (data.result) {
+                            var html = "";
+                            for (var i = 0; i < data.result.length; i++) {
+                                html += "<tr><td>" + data.result[i].name + "</td><td>" + data.result[i].age + "</td><td>" + data.result[i].grade + "</td></tr>";
+                            }
+                            $("tbody").append(html);
+                        }
+                    } else {
+                        alert(data.message);
+                    }
+                },
+                function (message) {
+                    alert(message);
+                });
+    }
+    function showData1() {
+        $.ajax({
+            url: "localhost:8088/admin/user/findAll",
+            type: "get",
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 200) {
+                    if (data.result) {
+                        var html = "";
+                        for (var i = 0; i < data.result.length; i++) {
+                            html += "<tr><td>" + data.result[i].name + "</td><td>" + data.result[i].age + "</td><td>" + data.result[i].grade + "</td></tr>";
+                        }
+                        $("tbody").append(html);
+                    }
+                } else {
+                    alert(data.message);
+                }
+            },
+            error: function (error) {
+                console.error(error);
+            }
+        });
+    }
+</script>
+</html>

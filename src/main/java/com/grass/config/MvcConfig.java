@@ -23,7 +23,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ConfigurationProperties(prefix = "spring.mvc.")
 @Order(4)
 public class MvcConfig extends WebMvcConfigurerAdapter {
-    private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(MvcConfig.class);
     @Value("${prefix}")
     private String prefix;
     @Value("${suffix}")

@@ -19,7 +19,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @Order(3)
 public class AppConfig {
-    private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppConfig.class);
     @Bean
     public LocalValidatorFactoryBean validator() {
         logger.info("grass-----AppConfig-----validator-------------init");

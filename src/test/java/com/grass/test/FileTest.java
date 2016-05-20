@@ -144,7 +144,6 @@ public class FileTest {
                 if (list.size() > 3) {
                     //判断是否都连续
                     for (int i = 0; i < list.size()-1; i++) {
-
                         if (list.get(i + 1).equals(list.get(i) + 1)) {
                             ++sameCharCount;
                         } else {
