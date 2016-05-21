@@ -28,14 +28,9 @@ public class UserController extends BaseController {
 
     @RequestMapping("/findAll")
     @ResponseBody
-    public String findAll(HttpServletRequest request, HttpServletResponse response) {
+    public String findAll() {
         UserEntity userEntity = new UserEntity();
         List<UserEntity> list = userService.findList(userEntity);
-        response.addHeader("Access-Control-Allow-Origin","*");
-        response.addHeader("Access-Control-Allow-Credentials","true");
-        response.addHeader("Access-Control-Allow-Headers","Content-Type, Content-Disposition, attachment,application/x-www-form-urlencoded,x-requested-with");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Max-Age", "3600");
         return ResultDTO.toJson(200, "成功", list);
     }
 

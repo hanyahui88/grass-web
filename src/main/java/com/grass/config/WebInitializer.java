@@ -1,6 +1,7 @@
 package com.grass.config;
 
 import com.alibaba.druid.support.http.StatViewServlet;
+import com.grass.common.filter.CommonFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -49,7 +50,8 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
-        return new Filter[]{characterEncodingFilter};
+        CommonFilter commonFilter = new CommonFilter();
+        return new Filter[]{characterEncodingFilter, commonFilter};
     }
 
     /*
