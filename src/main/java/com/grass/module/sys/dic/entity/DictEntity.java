@@ -3,7 +3,7 @@
  */
 package com.grass.module.sys.dic.entity;
 
-import com.grass.common.persistence.CommonEntiry;
+import com.grass.common.persistence.BaseEntiry;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlAttribute;
  * @author hanyahui
  * @version 2013-05-15
  */
-public class DictEntity extends CommonEntiry {
+public class DictEntity extends BaseEntiry {
 
     private static final long serialVersionUID = 1L;
     private String value;    // 数据值
@@ -29,7 +29,7 @@ public class DictEntity extends CommonEntiry {
         super();
     }
 
-    public DictEntity(String id) {
+    public DictEntity(Long id) {
         super(id);
     }
 

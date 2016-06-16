@@ -8,8 +8,8 @@ import com.google.common.collect.Maps;
 import com.grass.common.mapper.JsonMapper;
 import com.grass.common.utils.CacheUtils;
 import com.grass.common.utils.SpringContextHolder;
-import com.grass.module.sys.dic.mapper.DictMapper;
 import com.grass.module.sys.dic.entity.DictEntity;
+import com.grass.module.sys.dic.mapper.DictMapper;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public class DictUtils {
         Map<String, List<DictEntity>> dictMap = (Map<String, List<DictEntity>>) CacheUtils.get(CACHE_DICT_MAP);
         if (dictMap == null) {
             dictMap = Maps.newHashMap();
-            for (DictEntity dict : dictDao.findAllList(new DictEntity())) {
+            for (DictEntity dict : dictDao.findAll()) {
                 List<DictEntity> dictList = dictMap.get(dict.getType());
                 if (dictList != null) {
                     dictList.add(dict);

@@ -3,7 +3,7 @@
  */
 package com.grass.module.sys.dic.service;
 
-import com.grass.common.persistence.CommonService;
+import com.grass.common.persistence.BaseService;
 import com.grass.common.utils.CacheUtils;
 import com.grass.module.sys.dic.entity.DictEntity;
 import com.grass.module.sys.dic.mapper.DictMapper;
@@ -21,27 +21,8 @@ import java.util.List;
  */
 @Service
 @Transactional(readOnly = true)
-public class DictService extends CommonService<DictEntity, DictMapper> {
+public class DictService extends BaseService<DictEntity, DictMapper> {
 
-    /**
-     * 查询字段类型列表
-     *
-     * @return
-     */
-    public List<String> findTypeList() {
-        return dao.findTypeList(new DictEntity());
-    }
 
-    @Transactional(readOnly = false)
-    public void save(DictEntity dict) {
-        super.save(dict);
-        CacheUtils.remove(DictUtils.CACHE_DICT_MAP);
-    }
-
-    @Transactional(readOnly = false)
-    public void delete(DictEntity dict) {
-        super.delete(dict);
-        CacheUtils.remove(DictUtils.CACHE_DICT_MAP);
-    }
 
 }

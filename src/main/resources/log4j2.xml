@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="info">
+<configuration status="off">
     <!--先定义所有的appender-->
     <appenders>
         <!--这个输出控制台的配置-->
@@ -56,7 +56,7 @@
         </logger>
 
         <!--建立一个默认的root的logger-->
-        <root level="trace">
+        <root level="info">
             <appender-ref ref="RollingFile"/>
             <appender-ref ref="Console"/>
         </root>

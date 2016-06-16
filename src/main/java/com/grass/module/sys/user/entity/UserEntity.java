@@ -1,11 +1,11 @@
 package com.grass.module.sys.user.entity;
 
-import com.grass.common.persistence.CommonEntiry;
+import com.grass.common.persistence.BaseEntiry;
 
 /**
  * Created by 韩亚辉 on 2016/4/18.
  */
-public class UserEntity extends CommonEntiry {
+public class UserEntity extends BaseEntiry {
     private String name;
     private Integer age;
     private String username;

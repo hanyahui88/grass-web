@@ -3,7 +3,7 @@
  */
 package com.grass.module.sys.dic.mapper;
 
-import com.grass.common.persistence.CommonMapper;
+import com.grass.common.persistence.BaseMapper;
 import com.grass.module.sys.dic.entity.DictEntity;
 import org.springframework.stereotype.Repository;
 
@@ -16,8 +16,8 @@ import java.util.List;
  * @version 2014-05-16
  */
 @Repository
-public interface DictMapper extends CommonMapper<DictEntity> {
+public interface DictMapper extends BaseMapper<DictEntity> {
 
-    public List<String> findTypeList(DictEntity dict);
+    List<String> findTypeList(DictEntity dict);
 
 }

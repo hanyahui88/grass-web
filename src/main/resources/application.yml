@@ -57,6 +57,15 @@ spring:
         pool.maxIdle: 300
         pool.maxTotal: 60000
         pool.testOnBorrow: true
+    mongodb:
+        host: localhost
+        port: 27017
+        username:
+        password:
+        database: test
+        uri: mongodb://${spring.mongodb.host}/${spring.mongodb.database}
+        active:
+
 
 
 #shiro settings

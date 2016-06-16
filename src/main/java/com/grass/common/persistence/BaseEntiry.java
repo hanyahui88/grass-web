@@ -1,38 +1,38 @@
 package com.grass.common.persistence;
 
+import com.grass.common.utils.IdWorkerUtils;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * Created by 韩亚辉 on 2016/4/19.
  */
-public abstract class CommonEntiry {
+public abstract class BaseEntiry {
     protected String remarks;    // 备注
-    protected String createUser;    // 创建者
+    protected Long createUser;    // 创建者
     protected String createUserName;    // 创建者
     protected Date createDate;    // 创建日期
     protected String updateUserName;    // 更新者
-    protected String updateUser;    // 更新者
+    protected Long updateUser;    // 更新者
     protected Date updateDate;    // 更新日期
-    protected String delFlag;    // 删除标记（0：正常；1：删除；2：审核）
+    protected int delFlag;    // 删除标记（0：正常；1：删除；2：审核）
 
 
     /**
      * 删除标记（0：正常；1：删除；2：审核；）
      */
-    public static final String DEL_FLAG_NORMAL = "0";
-    public static final String DEL_FLAG_DELETE = "1";
-    public static final String DEL_FLAG_AUDIT = "2";
-    protected String id;
+    public static final int DEL_FLAG_NORMAL = 0;
+    public static final int DEL_FLAG_DELETE = 1;
+    public static final int DEL_FLAG_AUDIT = 2;
+    protected Long id;
     protected Boolean newRecord;
 
-    public CommonEntiry() {
+    public BaseEntiry() {
         this.delFlag = DEL_FLAG_NORMAL;
     }
 
-    public CommonEntiry(String id) {
+    public BaseEntiry(Long id) {
         this();
         this.id = id;
     }
@@ -52,14 +52,6 @@ public abstract class CommonEntiry {
         this.newRecord = newRecord;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     public String getRemarks() {
         return remarks;
@@ -69,13 +61,6 @@ public abstract class CommonEntiry {
         this.remarks = remarks;
     }
 
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
 
     public String getCreateUserName() {
         return createUserName;
@@ -101,12 +86,36 @@ public abstract class CommonEntiry {
         this.updateUserName = updateUserName;
     }
 
-    public String getUpdateUser() {
+    public Long getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(Long createUser) {
+        this.createUser = createUser;
+    }
+
+    public Long getUpdateUser() {
         return updateUser;
     }
 
-    public void setUpdateUser(String updateUser) {
+    public void setUpdateUser(Long updateUser) {
         this.updateUser = updateUser;
+    }
+
+    public int getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(int delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getUpdateDate() {
@@ -117,30 +126,15 @@ public abstract class CommonEntiry {
         this.updateDate = updateDate;
     }
 
-    public String getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
-    }
 
     public void preInsert() {
         // 不限制ID为UUID，调用setIsNewRecord()使用自定义ID
-        setId(UUID.randomUUID() + "");
-//        User user = UserUtils.getUser();
-//        if (StringUtils.isNotBlank(user.getId())){
-//            this.updateBy = user;
-//            this.createBy = user;
-//        }
-        this.createDate = this.updateDate;
+        setId(IdWorkerUtils.nextId());
+        this.createDate = new Date();
+        this.updateDate = new Date();
     }
 
     public void preUpdate() {
-//        User user = UserUtils.getUser();
-//        if (StringUtils.isNotBlank(user.getId())){
-//            this.updateBy = user;
-//        }
         this.updateDate = new Date();
     }
 
