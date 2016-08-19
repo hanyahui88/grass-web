@@ -47,23 +47,23 @@ public class CollectText {
 
     @Test
     public void testReadFile() throws IOException {
-        String fileName = "e:\\fk.mp4";
-        RandomAccessFile randomFile = null;
-        randomFile = new RandomAccessFile(fileName, "r");
-        long fileLength = randomFile.length();
-        System.out.println("文件大小:" + fileLength);
-        byte[] bytes = new byte[91];
-        int byteread = 0;
-        // 一次读10个字节，如果文件内容不足10个字节，则读剩下的字节。
-        // 将一次读取的字节数赋给byteread
-        while ((byteread = randomFile.read(bytes)) != -1) {
-            // System.out.write(bytes, 0, byteread);
-            System.out.println(byteread);
-        }
-        System.out.println(new String(bytes, "UTF-8"));
-        if (randomFile != null) {
-            randomFile.close();
-        }
+//        String fileName = "e:\\fk.mp4";
+//        RandomAccessFile randomFile = null;
+//        randomFile = new RandomAccessFile(fileName, "r");
+//        long fileLength = randomFile.length();
+//        System.out.println("文件大小:" + fileLength);
+//        byte[] bytes = new byte[91];
+//        int byteread = 0;
+//        // 一次读10个字节，如果文件内容不足10个字节，则读剩下的字节。
+//        // 将一次读取的字节数赋给byteread
+//        while ((byteread = randomFile.read(bytes)) != -1) {
+//            // System.out.write(bytes, 0, byteread);
+//            System.out.println(byteread);
+//        }
+//        System.out.println(new String(bytes, "UTF-8"));
+//        if (randomFile != null) {
+//            randomFile.close();
+//        }
     }
 
     @Test

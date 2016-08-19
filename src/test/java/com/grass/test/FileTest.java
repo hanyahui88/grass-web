@@ -24,31 +24,31 @@ public class FileTest {
      * 获取文件中的字符个数
      */
     public void testFile() throws IOException {
-        FileInputStream fis = new FileInputStream("e:\\a.txt");
-        BufferedReader dr = new BufferedReader(new InputStreamReader(fis));
-        List<String> list = Lists.newArrayList();
-        while (dr.readLine() != null) {
-            list.add(dr.readLine());
-        }
-        Map<String, Integer> map = Maps.newHashMap();
-        list.forEach((item) -> {
-            if (null != map.get(item)) {
-                map.put(item, map.get(item) + 1);
-            } else {
-                map.put(item, 1);
-            }
-        });
-        List<FileTestEntity> fileTestEntities = Lists.newArrayList();
-        map.forEach((x, y) -> {
-            FileTestEntity fileTestEntity = new FileTestEntity();
-            fileTestEntity.setKey(x);
-            fileTestEntity.setValue(y);
-            fileTestEntities.add(fileTestEntity);
-        });
-        Collections.sort(fileTestEntities);
-        fileTestEntities.forEach((x) -> {
-            System.out.println(x.getKey() + ":" + x.getValue());
-        });
+//        FileInputStream fis = new FileInputStream("e:\\a.txt");
+//        BufferedReader dr = new BufferedReader(new InputStreamReader(fis));
+//        List<String> list = Lists.newArrayList();
+//        while (dr.readLine() != null) {
+//            list.add(dr.readLine());
+//        }
+//        Map<String, Integer> map = Maps.newHashMap();
+//        list.forEach((item) -> {
+//            if (null != map.get(item)) {
+//                map.put(item, map.get(item) + 1);
+//            } else {
+//                map.put(item, 1);
+//            }
+//        });
+//        List<FileTestEntity> fileTestEntities = Lists.newArrayList();
+//        map.forEach((x, y) -> {
+//            FileTestEntity fileTestEntity = new FileTestEntity();
+//            fileTestEntity.setKey(x);
+//            fileTestEntity.setValue(y);
+//            fileTestEntities.add(fileTestEntity);
+//        });
+//        Collections.sort(fileTestEntities);
+//        fileTestEntities.forEach((x) -> {
+//            System.out.println(x.getKey() + ":" + x.getValue());
+//        });
     }
 
     @Test

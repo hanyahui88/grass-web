@@ -1,6 +1,5 @@
 group 'com.grass'
 version '1.0-SNAPSHOT'
-
 buildscript {
     repositories {
         maven {
@@ -16,7 +15,7 @@ buildscript {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.5'
     }
 }
-
+apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'spring-boot'
@@ -29,14 +28,39 @@ repositories {
     mavenLocal()
     mavenCentral()
 }
-ext{
-    groovy_version="2.4.7"
+springBoot {
+    mainClass = "com.grass.config.Application"
 }
-dependencies {
+tomcat {
+    httpPort = 80
+    httpsPort = 8090
+    enableSSL = false
+    contextPath = 'grass'
+    users {
+        user {
+            username = 'tomcat'
+            password = 'tomcat'
+            roles = ['admin-gui', 'manager-gui']
+        }
+    }
+}
+configurations {
+    compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.12'
+}
+
+dependencies {
     testCompile(
             'junit:junit:4.11',
-            "org.springframework.boot:spring-boot-starter-test"
+            "org.springframework.boot:spring-boot-starter-test",
+            'org.spockframework:spock-core:1.1-groovy-2.4-rc-1',
+            'org.spockframework:spock-spring:1.1-groovy-2.4-rc-1',
+            //微基准测试
+            'org.openjdk.jmh:jmh-core:1.13',
+            'org.openjdk.jmh:jmh-generator-annprocess:1.13'
     )
     compile(
             'org.springframework.boot:spring-boot-starter',
@@ -53,14 +77,12 @@ dependencies {
             'org.springframework.boot:spring-boot-starter-aop',
             'org.springframework.boot:spring-boot-starter-aop',
             'org.springframework.boot:spring-boot-devtools',
-            //test
-            'org.spockframework: spock-core:1.1-groovy-2.4-rc-1',
-            'org.spockframework: spock-spring: 1.1-groovy-2.4-rc-1',
-            'org.codehaus.groovy: groovy-all: ${groovy_version}',
-            'cglib: cglib-nodep: 3.2.4',
-            'org.objenesis: objenesis: 2.4',
+
+            'org.codehaus.groovy:groovy-all:2.4.7',
+            'cglib:cglib-nodep:3.2.4',
+            'org.objenesis:objenesis:2.4',
             //异步日志支持
-            'com.lmax: disruptor: 3.3.4',
+            'com.lmax:disruptor:3.3.4',
             //mybatis
             'org.mybatis:mybatis:3.3.1',
             'org.mybatis:mybatis-spring:1.2.4',
@@ -83,8 +105,11 @@ dependencies {
             'commons-codec:commons-codec:1.10',
             'commons-fileupload:commons-fileupload:1.3.1',
             'commons-beanutils:commons-beanutils:1.9.2',
-            //java工具类
+            //java guava工具类
             'com.google.guava:guava:19.0',
+            //java collections 工具类
+            'org.eclipse.collections:eclipse-collections:8.0.0-M1',
+            'org.eclipse.collections:eclipse-collections-testutils:8.0.0-M1',
             //操作redis
             'redis.clients:jedis:2.8.1',
             'org.springframework.data:spring-data-redis:1.6.4.RELEASE',
@@ -93,29 +118,29 @@ dependencies {
             'com.fasterxml.jackson.core:jackson-core:2.7.3',
             'com.fasterxml.jackson.core:jackson-annotations:2.7.3',
             'com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.7.3',
-            //pojo copy
-//            'net.sf.dozer:dozer:5.5.1',
+//            pojo copy
+            'net.sf.dozer:dozer:5.5.1',
 //            // poi操作office
 //            'org.apache.poi:poi:3.14',
 //            'org.apache.poi:poi-ooxml:3.14',
 //            'org.apache.poi:poi-ooxml-schemas:3.14',
-//            //image util
-//            'com.drewnoakes:metadata-extractor:2.8.1',
-//            //二维码
-//            'com.google.zxing:core:3.2.1',
-//            'com.google.zxing:javase:3.2.1',
+            //image util
+            'com.drewnoakes:metadata-extractor:2.8.1',
+            //二维码
+            'com.google.zxing:core:3.2.1',
+            'com.google.zxing:javase:3.2.1',
 //            //httpcomponents
 //            'org.apache.httpcomponents:httpclient:4.5.2',
 //            'org.apache.httpcomponents:httpcore:4.4.4',
 //            'org.apache.httpcomponents:httpmime:4.5.2',
-//            'org.glassfish.jersey.core: jersey-client: 2.23.1',
+//            'org.glassfish.jersey.core:jersey-client:2.23.1',
 
-//            //shiro
-//            'org.apache.shiro:shiro-core:1.2.4',
-//            'org.apache.shiro:shiro-web:1.2.4',
-//            'org.apache.shiro:shiro-ehcache:1.2.4',
-//            'org.apache.shiro:shiro-spring:1.2.4',
-//            'org.apache.shiro:shiro-cas:1.2.4',
+            //shiro
+            'org.apache.shiro:shiro-core:1.2.4',
+            'org.apache.shiro:shiro-web:1.2.4',
+            'org.apache.shiro:shiro-ehcache:1.2.4',
+            'org.apache.shiro:shiro-spring:1.2.4',
+            'org.apache.shiro:shiro-cas:1.2.4',
 
             //<!-- bean validate -->
             'org.hibernate:hibernate-validator:5.2.4.Final',
@@ -126,35 +151,11 @@ dependencies {
 
             //servlet
             'javax.servlet:javax.servlet-api:4.0.0-b01',
-            'javax.servlet.jsp:jsp-api:2.2.1-b03',
-            //微基准测试
-            'org.openjdk.jmh: jmh-core: 1.13',
-            'org.openjdk.jmh: jmh-generator-annprocess: 1.13',
+            'javax.servlet.jsp:jsp-api:2.2.1-b03'
     )
-    def tomcatVersion = '8.5.4'
+    def tomcatVersion = '8.0.36'
     tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}",
             "org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}"
-
-}
-tomcat{
-    httpPort = 80
-    httpsPort = 8090
-    enableSSL = false
-    contextPath = 'grass'
-    users {
-        user {
-            username = 'tomcat'
-            password = 'tomcat'
-            roles = ['admin-gui', 'manager-gui']
-        }
-    }
-}
-compileJava.dependsOn(processResources)
-configurations {
-    compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
-}
